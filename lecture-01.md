@@ -39,7 +39,7 @@ start:
     t: .word 1  
 ````
 
-Bell Labs wrote a formula translation language to translate equations into assembly code  
+John Backus at IBM Research wrote a formula translation language to translate equations into assembly code
 
 ## Fortran
 * allows you to write formulas in direct style
@@ -50,7 +50,7 @@ Bell Labs wrote a formula translation language to translate equations into assem
 * A ball
 
 At the same time:  
-[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) wanted to make it easier for regular people to write programs which lead to Common Business-Oriented Language  
+[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) wanted to make it easier for regular people to write programs which lead to Common Business-Oriented Language
 
 ## COBOL
 ````
@@ -105,9 +105,9 @@ can add more relational axioms in database to improve proof system power
 80's  
 Prolog tries multiple different proof strategies at the same time, good for parallel execution  
 
-## [oaklisp](https://github.com/barak/oaklisp)
+## [Oaklisp](https://github.com/barak/oaklisp)
 
-## <a href="https://en.wikipedia.org/wiki/Oak_(programming_language)"> oak</a>, the basis of Java
+## <a href="https://en.wikipedia.org/wiki/Oak_(programming_language)">Oak</a>, the basis of Java
 
 # Tower of Power
 * lazy evaluation
