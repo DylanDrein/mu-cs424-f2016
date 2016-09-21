@@ -107,7 +107,7 @@ Prolog tries multiple different proof strategies at the same time, good for para
 
 ## [oaklisp](https://github.com/barak/oaklisp)
 
-## [oak](https://en.wikipedia.org/wiki/Oak_(programming_language)
+## <a href="https://en.wikipedia.org/wiki/Oak_(programming_language)"> oak</a>, the basis of Java
 
 # Tower of Power
 * lazy evaluation
