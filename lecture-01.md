@@ -25,25 +25,26 @@ People mainly used machine code for a while, which involved looking up instructi
 ````
 calculate (a+b*c)-d*e
 start:
-    load d  
-    mul e  
-    store t  
-    load t  
-    mul c  
-    add a  
-    sub t  
-    a: .word 1  
-    b: .word 1  
-    c: .word 1  
-    d: .word 1  
-    t: .word 1  
+	load d
+	mul e
+	store t
+	load t
+	mul c
+	add a
+	sub t
+	...
+a:	.word 1
+b:	.word 1
+c:	.word 1
+d:	.word 1
+t:	.word 1
 ````
 
 John Backus at IBM Research wrote a formula translation language to translate equations into assembly code
 
 ## Fortran
-* allows you to write formulas in direct style
-* features: is, subroutines, functions, arrays, i/o
+* allows you to write formulas in "direct style"
+* features: expressions, subroutines, functions, arrays, i/o
 
 ### Fortran 11
 * Object Oriented
@@ -57,7 +58,7 @@ At the same time:
 add a to b
 add c to d yielding x
 ````
-featured: subroutines, richer allocation, precision, 12 digit decimals, richer i/o, databases  
+featured: subroutines, richer allocation, precision, programmer-specified precision, rich I/O, databases
 
 ## LISP
 * different model of computation
@@ -87,12 +88,13 @@ Turing Machine can compute everything Churches Lambda Calculus (equivalent model
 * based on the idea that a method may ignore some parameters depending on the value of others
 * prevents needing to write multiple functions, callbacks
 * evaluation when needed instead of when statement written
-* call by need vs usual "eager evaluation"
+* "call by need" vs usual "eager evaluation"
 
-70's  
-Logicians like to write axioms, similar to databases  
-Want to lookup database entries for truths  
-can add more relational axioms in database to improve proof system power  
+70s
+
+Logicians like to write axioms, similar to databases
+Want to lookup database entries for truths
+can add more relational axioms in database to improve proof system power
 
 ## Prolog
 * Prolog = Logic Programming
@@ -102,8 +104,9 @@ can add more relational axioms in database to improve proof system power
 * [5th Generation Computing Project](https://en.wikipedia.org/wiki/Fifth_generation_computer)
 * 'it's this really cool language'
 
-80's  
-Prolog tries multiple different proof strategies at the same time, good for parallel execution  
+80s
+
+parallel Prolog, tries multiple different proof strategies at the same time, good for parallel execution
 
 ## [Oaklisp](https://github.com/barak/oaklisp)
 
