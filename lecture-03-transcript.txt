@@ -1,0 +1,141 @@
+Welcome to Racket v6.5.
+> (list 1 2 3)
+(1 2 3)
+> (car (list 1 2 3))
+1
+> (cdr (list 1 2 3))
+(2 3)
+> (cadr (list 1 2 3))
+2
+> (car (cdr (list 1 2 3)))
+2
+> #f
+#f
+> (load "lecture-03.scm")
+> (car_ (cons_ 2 3))
+2
+> (cdr_ (cons_ 2 3))
+3
+> (cdr_ (cons_ 1 (cons_ 2 (cons_ 3 #f))))
+#<procedure:...4/lecture-03.scm:10:24>
+> (car_ (cdr_ (cons_ 1 (cons_ 2 (cons_ 3 #f)))))
+2
+> (car_ (cdr_ (cdr_ (cons_ 1 (cons_ 2 (cons_ 3 #f))))))
+3
+> (cdr_ (cdr_ (cdr_ (cons_ 1 (cons_ 2 (cons_ 3 #f))))))
+#f
+> (load "lecture-03.scm")
+> (cons_1 1 2)
+#<procedure:...4/lecture-03.scm:14:25>
+> append
+#<procedure:append>
+> (append (list 1 2) (list 3 4))
+(1 2 3 4)
+> (append (list 1 2) (list 3 4) (list 5 6 7))
+(1 2 3 4 5 6 7)
+> (append)
+()
+> (null? (list))
+#t
+> (null? (list 3 4 5 5 6))
+#f
+> (append_ (list) (list 6 7 8))
+(6 7 8)
+> (append_ (list 1) (list 6 7 8))
+(1 6 7 8)
+> (append_ (list 1 2) (list 6 7 8))
+(1 2 6 7 8)
+> (append_ (list 1 2 3) (list 6 7 8))
+(1 2 3 6 7 8)
+> (reverse_ (list 1 2 3))
+(3 2 1)
+> nth
+nth: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> list-nth
+list-nth: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> elt
+elt: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> list-elt
+list-elt: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> nth
+nth: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (nth (list 100 101 102 103 104 105) 0)
+100
+> (nth (list 100 101 102 103 104 105) 1)
+n: undefined;
+ cannot reference undefined identifier
+> (nth (list 100 101 102 103 104 105) 1)
+101
+> (nth (list 100 101 102 103 104 105) 0)
+100
+> (nth (list 100 101 102 103 104 105) 4)
+104
+> (nth (list 100 101 102 103 104 105) 5)
+105
+> (nth (list 100 101 102 103 104 105) 6)
+car: contract violation
+  expected: pair?
+  given: ()
+  context...:
+   stdin::1287: nth
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> map
+#<procedure:map>
+> (map sqrt (list 0 1 2 3 4))
+(0 1 1.4142135623730951 1.7320508075688772 2)
+> (map - (list 0 1 2 3 4))
+(0 -1 -2 -3 -4)
+> (map - (list 100 200 300 400 500) (list 0 1 2 3 4))
+(100 199 298 397 496)
+> (map_ sqrt (list 0 1 2 3 4))
+(0 1 1.4142135623730951 1.7320508075688772 2)
+> (map - (list 0 1 2 3 4))
+(0 -1 -2 -3 -4)
+> (map_ - (list 100 200 300 400 500) (list 0 1 2 3 4))
+map_: arity mismatch;
+ the expected number of arguments does not match the given number
+  expected: 2
+  given: 3
+  arguments...:
+   #<procedure:->
+   (100 200 300 400 500)
+   (0 1 2 3 4)
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> filter
+#<procedure:filter>
+> >0
+>0: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> >0?
+>0?: undefined;
+ cannot reference undefined identifier
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (filter (λ (x) (>= x 0)) (list 1 -2 3 -4 5 -6 0 -0 17 -9))
+(1 3 5 0 0 17)
+> >=
+#<procedure:>=>
+> car
+#<procedure:car>
+> null?
+#<procedure:null?>
+> (filter_ (λ (x) (>= x 0)) (list 1 -2 3 -4 5 -6 0 -0 17 -9))
+(1 3 5 0 0 17)
