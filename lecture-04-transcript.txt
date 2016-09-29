@@ -1,0 +1,113 @@
+Welcome to Racket v6.5.
+> (list 1 2 3)
+(1 2 3)
+> 2
+2
+> (list (list 1 2 3) 3 17 91)
+((1 2 3) 3 17 91)
+> (list (list 1 (() ()) ((((())))) () 2 3) 3 17 91)
+stdin::59: #%app: missing procedure expression;
+ probably originally (), which is an illegal empty application
+  in: (#%app)
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (list (list 1 (list (list) (list)) (list (list (list (list (list))))) (list) 2 3) 3 17 91)
+((1 (() ()) ((((())))) () 2 3) 3 17 91)
+> (quote (1 (2 3)))
+(1 (2 3))
+> (1 (2 3))
+application: not a procedure;
+ expected a procedure that can be applied to arguments
+  given: 2
+  arguments...:
+   3
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (quote (1 (2 3)))
+(1 (2 3))
+> (quote 1 2)
+stdin::231: quote: wrong number of parts
+  in: (quote 1 2)
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (quote ((1 (() ()) ((((())))) () 2 3) 3 17 91))
+((1 (() ()) ((((())))) () 2 3) 3 17 91)
+> '((1 (() ()) ((((())))) () 2 3) 3 17 91)
+((1 (() ()) ((((())))) () 2 3) 3 17 91)
+> (list 12 (sqrt 19) '(12 19))
+(12 4.358898943540674 (12 19))
+> car
+#<procedure:car>
+> (let ((x 3)) (sqrt x))
+1.7320508075688772
+> (quote sqrt)
+sqrt
+> 'sqrt
+sqrt
+> '(sqrt (sin (cos 17)))
+(sqrt (sin (cos 17)))
+> (sqrt (sin (cos 17)))
+0+0.5212524666509105i
+> string->symbol
+#<procedure:string->symbol>
+> (string->symbol "foo")
+foo
+> 'foo
+foo
+> (equal? 2 3)
+#f
+> (or (equal? 2 3) (equal? 3 3))
+#t
+> (or (equal? 2 3) (equal? 3 4))
+#f
+> (or (equal? 2 3) 17)
+17
+> (load "lecture-04.scm")
+> (sll-eval '9)
+9
+> (sll-eval '(* 9 2))
+18
+> (sll-eval '(* 9 (+ 100 2)))
+918
+> (sll-eval '(* (- 9) (+ 100 2)))
+unknown unary op -
+  context...:
+   /home/barak/CS424/lecture-04.scm:32:2: sll-eval
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> -
+#<procedure:->
+> (sll-eval '(* (- 9) (+ 100 2)))
+-918
+> (sll-eval '(* (- 9) (+ 100 2 3 4 5)))
+-918
+> (sll-eval '(* (- 9) (+ 100 2 3 4 5)))
+-918
+> (sll-eval '(* (- 9) (+ 100 2 3 4 5)))
+-918
+> (sll-eval '(* (- 9) (++ 100 2 3 4 5)))
+unknown op ++
+  context...:
+   stdin::1653: sll-eval
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (sll-eval '(* (- 9) (++ 100 2 3 4 5)))
+unknown SLL operator: ++
+  context...:
+   stdin::2041: sll-eval
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (ddx 7)
+0
+> (ddx '(* 7 x))
+(+ (* 7 1) (* 0 x))
+> (ddx '(* (+ x 9) (- x 9)))
+(+ (* (+ x 9) (- 1)) (* (+ 1 0) (- x 9)))
+> (ddx '(+ (* x x) (- (* 9 9))))
+(+ (+ (* x 1) (* 1 x)) (- (+ (* 9 0) (* 0 9))))
+> (ddx '(* (+ x 9) (+ x (- 9))))
+(+ (* (+ x 9) (+ 1 (- 0))) (* (+ 1 0) (+ x (- 9))))
+> (load "lecture-04.scm")
+> (ddx '(* (+ x 9) (+ x (- 9))))
+(+ (* (+ x 9) (+ 1 (- 0))) (+ x (- 9)))
+> (ddx '(* (+ x 9) (+ x (- 9))))
+(+ (+ x 9) (+ x (- 9)))
+> (ddx '(* (+ x 9) (+ x (- 9))))
+(+ (+ x 9) (+ x (- 9)))
