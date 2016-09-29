@@ -19,6 +19,36 @@ Administrative Matters
 Reference Materials
 ===================
 
+Scheme Reference Materials
+--------------------------
+
+* [The Original 'Lambda Papers' by Guy Steele and Gerald Sussman](http://library.readscheme.org/page1.html),
+aka _Lambda The Ultimate *X*_
+
+* textbook, free online: [_The Scheme Programming Language_, Fourth Edition, by R. Kent Dybvig](http://www.scheme.com/tspl4/)
+
+* textbook, free online: [_How to Design Programs_ by Felleisen et al](http://www.htdp.org/)
+
+* textbook, free online with video lectures: [_Structure and Interpretation of Computer Programs_ by Abelson and Sussman](https://mitpress.mit.edu/sicp/), this is very hard core.
+
+* textbook, [_Programming Languages: Application and Interpretation_ by Shriram Krishnamurthi_](http://cs.brown.edu/~sk/Publications/Books/ProgLangs/2007-04-26/).
+
+* tutorial: https://classes.soe.ucsc.edu/cmps112/Spring03/languages/scheme/SchemeTutorialA.html
+
+* tutorial/pure scheme cheat sheet: http://www.cs.rutgers.edu/~paull/LANG_SCHEME1.pdf
+
+* [_Yet Another Scheme Tutorial_](http://www.shido.info/lisp/idx_scm_e.html)
+
+* video on PLT Scheme (now Racket): https://www.youtube.com/watch?v=LbfBLMRccJc
+
+* [_Learn Scheme in 15 minutes_](http://web-artanis.com/scheme.html)
+
+* [_Teach Yourself Scheme in Fixnum Days_](http://ds26gte.github.io/tyscheme/)
+
+* List of resources: http://community.schemewiki.org/?category-learning-scheme
+
+* Curated Depot: http://www.schemers.org/
+
 λ-Calculus Reference Materials
 ------------------------------
 
@@ -52,11 +82,6 @@ Reference Materials
   (Full-length 206-page book, and an excellent one too!  Ends by
   formulating and proving Gödel's Theorem in λ-Calculus instead of the
   usual Turing Machine formulation.)
-
-Scheme Reference Materials
---------------------------
-
-* Lambda The Ultimate X
 
 Haskell Reference Materials
 ---------------------------
