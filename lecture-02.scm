@@ -95,4 +95,4 @@
 ;;;			=> 4
 ;;;		cdr --> returns a list excluding the first element
 ;;;			(cdr (list 4 5 6 7))
-;			=> (5 6 7)
+;;;			=> (5 6 7)
