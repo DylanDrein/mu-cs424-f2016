@@ -1,0 +1,128 @@
+Welcome to Racket v6.5.
+> ()
+stdin::1: #%app: missing procedure expression;
+ probably originally (), which is an illegal empty application
+  in: (#%app)
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-07.scm")
+lecture-07.scm:31:17: ...: ellipses not allowed as an expression
+  in: ...
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-07.scm")
+> de-sugar
+#<procedure:de-sugar>
+> (de-sugar '7)
+7
+> (de-sugar '(+ 1 3))
+(+ 1 3)
+> (de-sugar '(+ (λ (x) (sin x y)) 3))
+(+ (λ (x) (sin x y)) 3)
+> (de-sugar '(+ (if a b c) sin))
+(+ ((%if a (λ () b) (λ () c))) sin)
+> (eval_ '(+ 2 3))
+eval_: arity mismatch;
+ the expected number of arguments does not match the given number
+  expected: 2
+  given: 1
+  arguments...:
+   (+ 2 3)
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (eval_ '(+ 2 3) '())
+5
+> (eval_ '(if 2 3 4) '())
+3
+> (eval_ '(%if 2 3 4) '())
+3
+> (eval_ '(if 2 (sin 1 2) (cos 3)) '())
+sin: arity mismatch;
+ the expected number of arguments does not match the given number
+  expected: 1
+  given: 2
+  arguments...:
+   1
+   2
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (eval_ '(if 2 (cos 3) (sin 1 2)) '())
+error: unbound variable cos
+  context...:
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:87:2: lookup-var
+   /usr/share/racket/collects/racket/private/map.rkt:26:19: loop
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:32:2: eval-core
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (eval_ '(if 2 (sin 3) (sin 1 2)) '())
+0.1411200080598672
+> '`x
+`x
+> (car '`x)
+quasiquote
+> (car ''x)
+quote
+> (quasiquote (a b (unquote (+ 3 4)) d e))
+(a b 7 d e)
+> `(a b ,(+ 3 4) d e)
+(a b 7 d e)
+> `(a b (lambda (x) ,(+ 3 4)) d e)
+(a b (lambda (x) 7) d e)
+> `(a b ,(list 'aye 'bee 'sea) c d)
+(a b (aye bee sea) c d)
+> `(a b (unquote (list 'aye 'bee 'sea) c d))
+stdin::517: unquote: expects exactly one expression
+  at: (unquote (list (quote aye) (quote bee) (quote sea)) c d)
+  in: (quasiquote (a b (unquote (list (quote aye) (quote bee) (quote sea)) c d)))
+  context...:
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:240:18: qq
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:243:26: qq-list
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:243:26: qq-list
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:243:26: qq-list
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:207:6
+> `(a b (unquote (list 'aye 'bee 'sea)) c d)
+(a b (aye bee sea) c d)
+> `(a b (unquote-splicing (list 'aye 'bee 'sea)) c d)
+(a b aye bee sea c d)
+> `(a b ,@(list 'aye 'bee 'sea) c d)
+(a b aye bee sea c d)
+> (load "lecture-07.scm")
+> (de-sugar '(and a b c d))
+(if (car forms) (and b c d) #f)
+> (load "lecture-07.scm")
+> (de-sugar '(and a b c d))
+((%if
+  (car forms)
+  (λ ()
+    ((%if
+      (car forms)
+      (λ () ((%if (car forms) (λ () d) (λ () #f))))
+      (λ () #f))))
+  (λ () #f)))
+> (eval_ '(and 1 2 3 4) '())
+error: unbound variable forms
+  context...:
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:102:2: lookup-var
+   /usr/share/racket/collects/racket/private/map.rkt:26:19: loop
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:32:2: eval-core
+   /usr/share/racket/collects/racket/private/map.rkt:26:19: loop
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:32:2: eval-core
+   /usr/share/racket/collects/racket/private/map.rkt:26:19: loop
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-07.scm:32:2: eval-core
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-07.scm")
+> (de-sugar '(and a b c d))
+((%if
+  a
+  (λ () ((%if b (λ () ((%if c (λ () d) (λ () #f)))) (λ () #f))))
+  (λ () #f)))
+> (eval_ '(and 1 2 3 4) '())
+4
+> (eval_ '(and 1 2 #f 4) '())
+#f
+> (eval_ '(and 1 2) '())
+2
+> (eval_ '(and 1) '())
+1
+> (eval_ '(and #f 1) '())
+#f
+> 
