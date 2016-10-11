@@ -1,0 +1,49 @@
+eval_
+we want to get rid of if and add in a let, we want to get rid of define
+it's extensible, we can have new functions but they need to be defined globally
+
+
+apply_ 
+takes function and a list of arguments
+evaluates the body in an environment the body was defined augmented with the formal parameters
+very very short function yet powerful
+
+today we want to add a clean macro factiliity
+two ways to do this:
+
+1) Take the eval code and add more macros here
+	for example: ((equal? (car e) 'let) xxx)
+				((equal? (car e) 'cond) xxx)
+				and, or Macros too.
+
+		That's ugly though.
+		How would we manage to debug this?
+		There's a macro called quaziquote, it's cool but huge
+		In summary - bad option
+
+
+2) Take the eval code
+SIDENOTE: Think of C compiler, it has two passes, first it checks the macros and then does a full check of the core language then reads into the compiler.
+De-sugaring the macro and eval-core (eval-core only knows about the core-language) in the envrionment
+We just need to define de-sugar and eval-core
+This option will be way more straight-forward than the previous option.
+De-sugar is a program transformation tool, it takes a flowering macro code and expands everything for you; it's all scheme but it's broken down into sub-sets.
+So, how do we de-sugar code? Remember: it'll return what's already in sugared format and expand macros!
+We set mutiple conditions, for example:
+	We check to make sure there are no pairs
+		If there is a pair we check the car of e and check if it's a macro
+		But what if it's not a macro??? It's a function/lambda call
+			If it's a lambda, we have to make a list starting with lamdba, then have the list of formal parameters, then the body, and this should be de-sugared.
+			But what if it's a regular function call?
+				We de-sugar everything! At this point we should really put all of the f's in a table to clean things up. We can use assoc f macro-alist to do this. We could use else, let etc.. because assoc f gets called twice.
+	
+	INSTEAD OF:			((cadr(assoc f macro-alist)) e)
+	WE WRITE:			=>(lambda (x) ((cadr x) e))
+
+	You could add %if to the global-variable-alist to ensure the correct result is returned by the guard
+
+
+
+Tips: 	use single quote instead of writing "quasiquote" and use a comma to end the quote
+		use ,@ for splicing
+
