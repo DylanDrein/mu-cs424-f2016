@@ -1,0 +1,106 @@
+Tail recursion 
+
+term is relly bad
+it doesnt actually have required recursion 
+- story of work, bank , resturant , milk 
+alot of computer languages implemented follow this bad example
+
+Definition: Tail recursion is the act of making a tail recursive call. We can understand that term in parts. A call is just application of a function. A recursive call occurs when a function invokes itself. A tail call occurs when a function's result is just the value of another function call. In other words, in order to determine the value of function f, we call g, and return whatever g did, without modification.
+
+routine foo() {
+	bar();
+	return baz();// arrange for baz to return directly to caller of foo
+				 // is TCO = Tall Call Optimization
+}
+
+-bar branches to the stack 
+-a new activation record will be created for Baz
+-Baz will pop a return address of the stack
+-target address will have a return instruction
+- after baz has been done foo arguments would be dead
+- baz would now be foo with the return address of foo
+
+For a non-tail call, Scheme must remember that after the current function application, it is responsible for doing something else; and there may be many such things to do. For a tail call, Scheme doesn't have to remember anything, because there is nothing more to do: after it is done with the current function call, it is really done.
+
+Non-tail calls force Scheme to remember future actions (that couldn't be performed before), but tail calls don't. Non-tail calls require more space (because there is more to remember), so they are not as efficient as tail calls. Tail calls also permit us to forget the values of function parameters and local variables, because we never do any more work in the calling function, but a non-tail call forces us to remember such values, which might be used when we return to the calling function.
+
+We've noted that tail calls save space, but they also save time (are faster than non-tail calls) for much the same reasons.
+
+language standard says scheme cant take any additional space
+Bad way of doing doubling :
+(define dub (lambda (n)(if (zero? n) 0 (+ 2 (dub )- n 1)) ))
+(dub 4000)
+= 8000 etc
+
+Could we rewrite this so that it is tail recursive?
+-calls itself in a way where that call is subject to TCO
+-looking at code -> some are in tail postition some are not 
+	- 0 not in tail position 
+	- + is in tail position
+this is not as the the call is not recursive. 
+
+(define dub_ (lambda(n)(dub_aux n 0)))
+
+(define dub_aux
+ (lambda (n a)
+ 	(if (zero? n) 
+ 		a
+ 		(dub_aux (- n 1)(+ 2 a) ))))
+
+(dub_ 40)
+= 80
+(dub_aux 40 0)
+= 80 etc
+
+this a way of writing a tight loop 
+It looks like functional code
+function call = 1)arguments are martial
+				2)return address is stored
+				3)brach is made
+func with no arguments - 1 might be empty
+func with tail pos - 2 might be empty
+
+therefore leaving just 3)
+
+;;; dub_aux in (pidgin) machine code
+
+;;;dub_aux:	//r1 holds n, r2 holds a
+;;;		cmp r1 0
+;;;		jmp_t is_zero
+;;;		sub #1 r1
+;;;		add #2 r2
+;;;		jmp dub_aux
+;;;
+;;;is_zero:
+;;;		mv r2 r0 	//ro hold return values
+;;;		jmp (*returnStack--)
+
+this kind of language is used inside modern compilers
+
+tricks for changing non tail recursive code to tail recursive code
+credit card website example - shop on amazon but pay via paypal
+
+fibbonacci Sequence
+f(0) = 1
+f(1) = 1
+f(n) = f(n-1) + f(n-2).... for n>1		
+
+this is not tail recursive:
+(define fibb (lambda (n)(if (<= n 1) 1(+ (fibb (- n 1)) (fibb (- n 2))))))
+
+(fibb 15)
+= 987 etc
+
+
+check fibb code example of storing previous in memory
+
+Check notes: didnt get this finished.
+(define fibb_pp 
+	(lambda (n i f_i-1 f_i-2)
+		(let 
+		(if (= i n) 
+		(+ f_i-1 f_i-2)
+		(fibb_pp n (+ i 1)f_i f_i-1))))
+
+
+
