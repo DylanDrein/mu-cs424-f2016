@@ -1,3 +1,5 @@
+#lang racket/base
+
 ;;; Plan:
 ;;;  1. introduce datatype "symbolic expressions" or sexpr
 ;;;  2. blow your mind
@@ -11,17 +13,24 @@
 
 ;;; ==================== special form
 ;;; (quote THING)
+;;; Shorthand:
 ;;; 'THING => (quote THING)    - transformed at "read time"
+;;; E.g.:
+;;;		(quote (1 2)) => '(1 2)
 
 ;;; ==================== special form
 ;;; (or E1 E2 ... En) => evaluates l-to-r, returns 1st non-false value
 
 ;;; SLL = silly little language
+;;; SLLe = silly little language expression
+;;; SLLbinOp = silly little language binary operation
+;;; SLLunOp = silly little language unary operation
+
 ;;; <SLLe> ::= <NUMBER>
 ;;;         | (<SLLbinOp> <SLLe> <SLLe>)
 ;;;         | (<SLLunOp> <SLLe>)
-;;; <SLLbinOp> ::= + | *
-;;; <SLLunOp> ::= -
+;;; <SLLbinOp> ::= + | *				; addition, OR, multiplication
+;;; <SLLunOp> ::= -						; negation (not subtraction!)
 
 ;;; Examples of <SLLe>'s
 ;;;   7, (+ 2 3), (- (* 2 (- 6)))
@@ -30,9 +39,9 @@
 
 (define sll-eval0
   (λ (e)
-    (if (number? e)
+    (if (number? e)								; If it's a number, return that number
 	e
-	(if (sll-binop? (car e))
+	(if (sll-binop? (car e))					; If it's a binary op, get the expression
 	    (if (equal? (car e) '+)
 		(+ (sll-eval (cadr e))
 		   (sll-eval (caddr e)))
@@ -76,7 +85,7 @@
   (λ (s)
     (or (equal? s '-))))
 
-(define sll-eval
+(define sll-eval				; Final form, doesn't use sll-binop? or sll-unop?
   (λ (e)
     (cond ((number? e) e)
 	  ((equal? (car e) '+)
@@ -105,18 +114,18 @@
 	  ((equal? e 'x) 1)		; d/dx x = 1
 	  ((equal? (car e) '+)		; d/dx (u+v) = d/dx u + d/dx v
 	   (list '+
-		 (ddx (cadr e))
-		 (ddx (caddr e))))
+		 (ddx0 (cadr e))
+		 (ddx0 (caddr e))))
 	  ((equal? (car e) '*)		; d/dx (u*v) = u*v' + u'*v
 	   (list '+
 		 (list '*
 		       (cadr e)
-		       (ddx (caddr e)))
+		       (ddx0 (caddr e)))
 		 (list '*
-		       (ddx (cadr e))
+		       (ddx0 (cadr e))
 		       (caddr e))))
 	  ((equal? (car e) '-)
-	   (list '- (ddx (cadr e))))
+	   (list '- (ddx0 (cadr e))))
 	  (else (error "unknown SLL operator:" (car e))))))
 
 ;;; be a little careful to produce non-ugly output when easy
