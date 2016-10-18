@@ -1,0 +1,48 @@
+Welcome to Racket v6.5.
+> (load "lecture-09.scm")
+> (fact 10)
+3628800
+> (load "lecture-09.scm")
+> (cfact 10)
+cfact: arity mismatch;
+ the expected number of arguments does not match the given number
+  expected: 2
+  given: 1
+  arguments...:
+   10
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> identity
+#<procedure:identity>
+> (cfact identity 10)
+3628800
+> (cfact (λ (x) (+ x 1)) 10)
+3628801
+> (load "lecture-09.scm")
+> (hypot 3 4)
+5
+> (chypot1 identity 3 4)
+c+: undefined;
+ cannot reference undefined identifier
+> (load "lecture-09.scm")
+> (chypot1 identity 3 4)
+5
+> (chypot2 identity 3 4)
+5.291502622129181
+> (load "lecture-09.scm")
+> (chypot2 identity 3 4)
+5
+> (load "lecture-09.scm")
+> to-cps
+#<procedure:to-cps>
+> (to-cps '8 'the-cont)
+(the-cont 8)
+> (to-cps 'x 'the-cont)
+(the-cont x)
+> (to-cps '(if a b c) 'the-cont)
+xxx: undefined;
+ cannot reference undefined identifier
+> (load "lecture-09.scm")
+> (to-cps '(if a b c) 'the-cont)
+((λ (gr) (if gr (the-cont b) (the-cont c))) a)
+> 
