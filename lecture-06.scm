@@ -41,15 +41,13 @@
 
 (define global-variable-alist
   (list
-    (list 'pi 'pi) ; Causing error when pi is not quoted => "pi: unbound identifier in module in: pi"
-	(list 'e (exp 1))
-	(list '+ +)
-    (list '* *)
-    (list '- -)
-	(list 'sin sin)
-	(list 'car car)
-    (list 'cdr cdr)
-    (list 'cons cons)
-    (list 'list list)
-   )
-)
+   (list 'pi (atan 0 -1))
+   (list 'e (exp 1))
+   (list '+ +)
+   (list '* *)
+   (list '- -)
+   (list 'sin sin)
+   (list 'car car)
+   (list 'cdr cdr)
+   (list 'cons cons)
+   (list 'list list)))
