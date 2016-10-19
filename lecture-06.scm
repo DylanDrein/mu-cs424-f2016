@@ -1,4 +1,4 @@
-#lang racket/base
+#lang scheme
 
 ;;; A Meta-Circular Interpreter in Scheme
 ;;; In general more powerful or descriptive languages have smaller interpreters
@@ -41,7 +41,7 @@
 
 (define global-variable-alist
   (list
-    (list 'pi 'pi) ; Causing error when pi is not quoted => "pi: unbound identifier in module in: pi"
+    (list 'pi pi)
 	(list 'e (exp 1))
 	(list '+ +)
     (list '* *)
