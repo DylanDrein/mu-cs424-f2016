@@ -1,6 +1,6 @@
 # Assignment 1
 
-*Due date:* 08:30 Mon 24-Oct-2016.
+*Due date:* 08:30 Thurs 27-Oct-2016.
 
 *Handing it in:* I will place turn-in instructions here; the hope is to have an automated testing system in place, which can be iterated. 
 
