@@ -1,4 +1,4 @@
-#lang racket/base
+#lang scheme
 
 ;;; Plan:
 ;;;  1. introduce datatype "symbolic expressions" or sexpr

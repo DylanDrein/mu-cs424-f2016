@@ -1,4 +1,4 @@
-#lang racket/base
+#lang scheme
 
 ;;; A Meta-Circular Interpreter in Scheme
 ;;; In general more powerful or descriptive languages have smaller interpreters
