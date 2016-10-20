@@ -1,0 +1,230 @@
+Process scheme finished
+Welcome to Racket v6.5.
+> (gensym)
+g38
+> (gensym)
+g39
+> (gensym)
+g40
+> (gensym)
+g41
+> (gensym)
+g42
+> (gensym 'foo)
+foo43
+> (gensym 'foo)
+foo44
+> (gensym 'foo)
+foo45
+> (gensym 'foo)
+foo46
+> (gensym 'foo)
+foo47
+> (equal? (gensym) (gensym))
+#f
+> (load "lecture-10.scm")
+> (to-cps 7 'c)
+(c 7)
+> (to-cps 'x 'c)
+(c x)
+> (to-cps '(λ (x y z) y) 'c)
+(λ (c58 x y z) (c58 y))
+> (to-cps '(if x y z) 'c)
+((λ (gr) (if gr (c y) (c z))) x)      ;; -->   (if x (c y) (c z))
+> ((car (list sin cos)) 2)
+0.9092974268256817
+> (load "lecture-10.scm")
+lecture-10.scm:30:30: let: bad syntax (not an identifier and expression for a binding)
+  at: ((rv (gensym (quote f))))
+  in: (let ((fe (car e)) ((rv (gensym (quote f))))) (unquote (to-cps fe (quasiquote (λ ((unquote rv)) ((unquote rv) cont))))))
+  context...:
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:101:61: loop
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:50:20: go
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-10.scm")
+lecture-10.scm:30:30: let: bad syntax (not an identifier and expression for a binding)
+  at: ((rv (gensym (quote f))))
+  in: (let ((fe (car e)) ((rv (gensym (quote f))))) (to-cps fe (quasiquote (λ ((unquote rv)) ((unquote rv) cont)))))
+  context...:
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:101:61: loop
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:50:20: go
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-10.scm")
+lecture-10.scm:30:30: let: bad syntax (not an identifier and expression for a binding)
+  at: ((rv (gensym (quote f))))
+  in: (let ((fe (car e)) ((rv (gensym (quote f))))) (to-cps fe (quasiquote (λ ((unquote rv)) ((unquote rv) cont)))))
+  context...:
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:101:61: loop
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:50:20: go
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-10.scm")
+lecture-10.scm:30:30: let: bad syntax (not an identifier and expression for a binding)
+  at: ((rv (gensym (quote f))))
+  in: (let ((fe (car e)) ((rv (gensym (quote f))))) (to-cps fe (quasiquote (λ ((unquote rv)) ((unquote rv) (unquote cont))))))
+  context...:
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:101:61: loop
+   /usr/share/racket/collects/racket/private/qq-and-or.rkt:50:20: go
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> (load "lecture-10.scm")
+> (to-cps '(f) 'c)
+((λ (f108) (f108 c)) f)
+> (to-cps '((if x sin cos)) 'c)
+((λ (guard110)
+   (if guard110 ((λ (f109) (f109 c)) sin) ((λ (f109) (f109 c)) cos)))
+ x)
+> (to-cps '((if x + *)) 'c)
+((λ (guard112) (if guard112 ((λ (f111) (f111 c)) +) ((λ (f111) (f111 c)) *)))
+ x)
+> (load "lecture-10.scm")
+> (to-cps '(sin x) 'c)
+((λ (arg131) ((λ (f130) (f130 c arg131)) sin)) x)
+> (load "lecture-10.scm")
+> (to-cps '(+ a b) 'c)
+((λ (arg156)
+   (to-cps ae2 `(λ (,av2) ,(to-cps fe `(λ (,fv) (,fv ,cont ,av1 ,av2))))))
+ a)
+> (load "lecture-10.scm")
+> (to-cps '(+ a b) 'c)
+((λ (arg182) ((λ (arg183) ((λ (f181) (f181 c arg182 arg183)) +)) b)) a)
+> (to-cps '(f (g (h x))) 'c)
+((λ (arg189)
+   ((λ (f188)
+      (f188
+       (λ (arg187)
+         ((λ (f186) (f186 (λ (arg185) ((λ (f184) (f184 c arg185)) f)) arg187))
+          g))
+       arg189))
+    h))
+ x)
+> (load "lecture-10.scm")
+> (to-cps hypot-e 'c)
+(λ (c220 x y)
+  ((λ (arg230)
+     ((λ (arg231)
+        ((λ (f229)
+           (f229
+            (λ (arg224)
+              ((λ (arg227)
+                 ((λ (arg228)
+                    ((λ (f226)
+                       (f226
+                        (λ (arg225)
+                          ((λ (f223)
+                             (f223
+                              (λ (arg222)
+                                ((λ (f221) (f221 c220 arg222)) csqrt))
+                              arg224
+                              arg225))
+                           c+))
+                        arg227
+                        arg228))
+                     c*))
+                  y))
+               y))
+            arg230
+            arg231))
+         c*))
+      x))
+   x))
+> (define chypot (λ (c220 x y)
+  ((λ (arg230)
+     ((λ (arg231)
+        ((λ (f229)
+           (f229
+            (λ (arg224)
+              ((λ (arg227)
+                 ((λ (arg228)
+                    ((λ (f226)
+                       (f226
+                        (λ (arg225)
+                          ((λ (f223)
+                             (f223
+                              (λ (arg222)
+                                ((λ (f221) (f221 c220 arg222)) csqrt))
+                              arg224
+                              arg225))
+                           c+))
+                        arg227
+                        arg228))
+                     c*))
+                  y))
+               y))
+            arg230
+            arg231))
+         c*))
+      x))
+   x)))
+> chypot
+#<procedure:chypot>
+> (chypot identity 3 4)
+5
+> curry
+#<procedure:curry>
+> (load "lecture-10.scm")
+> ((curry_ +) 2 3)
+...4/lecture-10.scm:76:22: arity mismatch;
+ the expected number of arguments does not match the given number
+  expected: 1
+  given: 2
+  arguments...:
+   2
+   3
+  context...:
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> ((curry_ +) 2)
+#<procedure:...4/lecture-10.scm:76:29>
+> (((curry_ +) 2) 3)
+5
+> ((uncurry_ (curry_ +)) 2 3)
+5
+> (load "lecture-10.scm")
+> pre-fact
+#<procedure:pre-fact>
+> (load "lecture-10.scm")
+> (pre-fact factorial)
+#<procedure:...4/lecture-10.scm:83:4>
+> ((pre-fact factorial) 0)
+1
+> ((pre-fact factorial) 10)
+3628800
+> ((pre-fact factorial) 11)
+39916800
+> (pre-fact error)
+#<procedure:...4/lecture-10.scm:83:4>
+> ((pre-fact error) 0)
+1
+> ((pre-fact error) 1)
+error: contract violation
+  expected: (or/c string? symbol?)
+  given: 0
+  context...:
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> ((pre-fact (pre-fact error)) 0)
+1
+> ((pre-fact (pre-fact error)) 1)
+1
+> ((pre-fact (pre-fact error)) 2)
+error: contract violation
+  expected: (or/c string? symbol?)
+  given: 0
+  context...:
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> ((pre-fact (pre-fact (pre-fact error))) 0)
+1
+> ((pre-fact (pre-fact (pre-fact error))) 1)
+1
+> ((pre-fact (pre-fact (pre-fact error))) 2)
+2
+> ((pre-fact (pre-fact (pre-fact error))) 3)
+error: contract violation
+  expected: (or/c string? symbol?)
+  given: 0
+  context...:
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /home/barak/text/Teach/NUIM/2016/cs424/lecture-10.scm:83:4
+   /usr/share/racket/collects/racket/private/misc.rkt:87:7
+> 
