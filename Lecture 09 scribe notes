@@ -1,0 +1,80 @@
+Semantics 18/10/2016 Lecture 09
+
+
+Last time: Tail recursion. We looked at how we turn some form of fortran/ machine language into code. 
+Today: Transformation in the other direction. We will not require stack. Like how we have no stack on the web. It will be distributable friendly. 
+Continuation-Passing Style = CPS
+Seen in GUI. You press a button, that will do some computation after a button is pressed.
+We will write a regular code to CPS-Transformer. Regular code will be in Scheme, using lambda and basic functions (cons etc.)
+CPS is not allowed to use to make no-tail calls. What? Means we just write code with non-tail calls, we use a trick: We will avoid functions which return data to us, by passing extra info that tells the function what to do with the data it computes. 
+Properties in CPS: Every function takes an extra argument, which is what to do with the result. We presume the primitive functions have the extra CPS ability.
+Instead of returning a value, call continuation on value to be returned.  
+As a consequence of everything so far, all intermediate results must be named. 
+As a consequence of the above, computations are forced to be given an order. (See the hypot example below). Order of subcomputations is made explicit. 
+
+Ex: 
+(define fact				;;;non CPS version
+     (lambda (n) 
+(if ( =n 0) 1 (* n (fact (- n 1))))))
+(define cfact 
+	(lambda (c n) 
+(if (c= (lambda (nz) (if nz 	;;;cant make a non tail call to equals (=). So make c=
+(c 1);;; if it was equal to 0 
+(c- (lambda (nm1)
+ (cfact (lambda (fnm1) 
+(c* c n fnm1)) ;;;fnm1=factorial of n-1 . This is the transformation of the tail call because no more continuation. 
+nm1)) 
+n 1))) 
+n 0))) 
+					 
+;;;This is all way to similar, so create a CPS version for it all
+(define c=  (lambda (c a b) (c (= a b)))). 
+(define c-  (lambda (c a b) (c (- a b))))
+(define c*  (lambda (c a b) (c (* a b))))
+;;;Better
+(define cps-primop-1 (lambda (f) (lambda (c a b ) (c (f a ))))
+(define cps-primop-2 (lambda (f) (lambda (c a b ) (c (f a b ))))
+(define c=  (cps-primop-2 =)) 
+(define c-  (cps-primop-2 -)) 
+(define c*  (cps-primop-2 *)) 
+(define c+ (cps-primop-2 +))
+(define csqrt (cps-primop-1 sqrt))
+
+We do all of this so we don’t have to handle anything after we send it off to be computed. It is not our problem anymore. WE include what should be done with the result, it packages everything up together. Compilers will turn code into what we have above, and then walk the code. 
+If we were transforming Fib, we must decide which recursive call we work on first. (The slow naïve version of fib we saw first.)
+
+(define hypot (lambda (x y) (sqrt ( + (* x y) (* y y))))
+
+(define chypot (lambda (c x y) ;;; this one goes in one direction, starting with the x’s
+(c*  (lambda x 2) (c* (lambda (y2) (c+ ( lambda (x2py2) (csqrt c x2py2))
+						X2 y2)) 
+			y y))
+ 	x x)))
+
+
+(define chypot2 (lambda (c x y) ;;; this one goes in one direction, starting with the y’s
+(c*  (lambda y2) (c* (lambda (x2) (c+ ( lambda (x2py2) (csqrt c x2py2))
+						X2 y2)) 
+		x x ))
+ 	y y)))
+
+All of this was tedious and error prone. Can we create something that will do this auto transformation for us? 
+;;; What we are doing in our method to-cps below
+;;;define [e]c = CPS convert e to call continuation c
+;;; [2]c -> (c 2) 			[v]c -> (c v)
+;;; [(lambda (v) e)]c -> (lambda ( cc v) [e]cc)
+;;;[(f e)]c -> [e] (lambda (er) [f](lambda (fr c ef) )) takes result of e and computes on it, calculating f. But this is not the best. 
+;;;[(if g tp ep)]c -> [g](lambda (gr) (if gr [tp]c [ep]c))
+;;; e being a chunk of code. Convert scheme expr to CPS, allowed constructs: numbers, variables, lambda exprs, function calls, if
+
+(define to-cps 
+(lambda (e cont) ;;; cont is how we continue
+  (cond (( symbol? e) `(,cont, e))
+	((number? e) `(,cont, e))
+	((equal? (car e) `lambda) xxx)
+	((equal? (car e) `if)
+		(let ((guard (cadr e)) (then-part (caddr e)) (else-part (caddr e)))
+			(to-cps `(lambda (gr) (if gr ,(to-cps then-part cont),to-cps else-part cont))) guard))) ;;;because of the call of guard, we need to CPS it. 
+		(else 
+		;;;must be call
+		xxx))))
