@@ -1,0 +1,30 @@
+λ Calculus "Term", E
+
+E ::= V           [where v is a variable]
+      | λ V . E   [lambda expression]
+      | E E       [application]
+
+V ::= x | y | z | a | b | ...
+
+Notation:
+  - parens used for grouping
+  - λ-expressions extend as far to the right as possible
+    (λ x . x x) y
+    λ x . x x y = λ x . (x x y)
+  - application is "left associative":
+    x y z = (x y) z
+  - all λ-expressions have one variable,
+    multivariate is shorthand (sugar) for curried
+     λ x y z . e = λ x . λ y . λ z . e = λ x . (λ y . (λ z . e))
+
+Q: Why write λv.e instead of v→e ?
+A: Church's typewriter didn't have unicode.
+
+In differential calculus, have "reduction"
+   (d/dx)(u*v)  -->  (u)*(d/dx)(v) + (d/dx)(u)*(v)
+
+In λ-calc, one reduction, called β-reduction
+
+   (λ v . e1) e2    -->    [e2/v]e1      (where [e2/v] means replace instances of v by e2)
+
+where variables have to be renamed if necessary.
