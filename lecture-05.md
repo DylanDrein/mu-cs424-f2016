@@ -53,7 +53,7 @@ The repeat function recursively calls itself passing in the differentiating func
 		 (if (zero? n) x (repeat f (- n 1) (f x)))))
 ```
 
-Here we define some unit tests. These unit tests compare the input and the output to our ddx function. These format of unit testing however does not work if we simplified our expression further. iFor example if we output (* 3 x) but this table said (+ x (+ x x)) then even though both expressions mean 3x we would fail the unit test.
+Here we define some unit tests. These unit tests compare the input and the output to our ddx function. These format of unit testing however does not work if we simplified our expression further. For example if we output (* 3 x) but this table said (+ x (+ x x)) then even though both expressions mean 3x we would fail the unit test.
 ````
 (define ddx-unit-test-table
   '(( (sin (* x x))
@@ -64,7 +64,7 @@ Here we define some unit tests. These unit tests compare the input and the outpu
       (* (cos (* x x)) (+ x x)))))
 ````
 
-Instead we cant to evaluate our derivative at a point as say for the example above (+ 2 (+ 2 2)) => 6 and (* 3 2) => 6  
+Instead we can try to evaluate our derivative at a point as say for the example above (+ 2 (+ 2 2)) => 6 and (* 3 2) => 6  
 This is a function that takes in an x value, with another function inside that takes in a variable called unit-test.  
 Then we make some variable definitions. u = start of unit-test (the first expression, undifferentiated), n = number of times to differentiate, du1 = the second expression (differentiated).  
 Then we set du2 to the nth derivative of u.  
