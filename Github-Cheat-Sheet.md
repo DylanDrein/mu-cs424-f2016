@@ -2,17 +2,24 @@ To contribute to this repo first click Fork at the right top of the projects Git
 ````
 git clone https://github.com/ (your github username) /mu-cs424-f2016
 ````
-then
+Move into the folder with all the cloned files.
 ````
 cd mu-cs424-f2016
 ````
-This moves you into the folder where all the Github files are held. Add your new files here, if you're not experienced with markdown you can use the Atom editor by github which has the option to add a markdown preview view under Packages>Markdown Preview.  
+Add your new files here.
 
-Make changes locally to the files/add new files then run  
+If you're not experienced with markdown you can use the Atom editor by github which has the option to add a markdown preview view under Packages>Markdown Preview.  
+[Here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) is a link to a detailed markdown reference sheet which may be handy.
+
+Make changes locally to the files/add new files then run
 ````
 git add -A
 ````
-to add all files to git. Then run  
+to add all files to git. To check everything is working.
+````
+git status
+````
+Where the files in green are ready to be pushed. Next run
 ````
 git commit -m "commit message"
 ````
