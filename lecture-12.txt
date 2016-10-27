@@ -1,0 +1,76 @@
+In λ-calc, one reduction, called β-reduction
+
+   (λ v . e1) e2    -->    [e2/v]e1      (where [e2/v] means replace instances of v by e2)
+
+where variables have to be renamed if necessary.
+
+
+    (λ y . (x y z y)) u
+    -->  [u/y](x y z y)
+         = x u z u
+
+Define substitution operator:
+
+    [e/v] v = e                 (applied to a variable which is the variable of interest)
+    [e/v] x = x                 ( .............................^not...................)
+    [e/v] (e1 e2) = [e/v]e1 [e/v]e2          (applied to an application)
+(*) [e/v] (λ x . e1) = λ x . [e/v]e1
+
+              [g/x](λ x . x y)   =    λ x . g y                 (oops)
+
+[e/v]e1   should replace "free" occurrences of v in e1 with e
+
+FV(e) = set of free variables in expression e.
+FV(v) = {v}
+FV(e1 e2) = union(FV(e1), FV(e2))
+FV(λ v . e) = FV(e) \ {v}
+
+    [e/v] (λ v . e1) = (λ v . e1)                (stop when shadowed)
+(*) [e/v] (λ x . e1) = (λ x . [e/v]e1)           (not shadowed, i.e., {v} != {x}, not same var)
+
+    (λ x . x v) x  -->  [x/x](x v) = [x/x]x [x/x]v = x v
+    (λ x . x v) v  -->  [v/x](x v) = [v/x]x [v/x]v = v v
+(*) (λ x . (λ y . x)) y --> [y/x](λ y . x) = λ y . [y/x]x = λ y . y   (oops! var y "captured")
+
+    [e/v] (λ x . e1) = (λ x . [e/v]e1)           (not shadowed, i.e., {v} != {x}, not same var
+    	       	       	      			      *and* x ∉ FV(e) )
+
+Need to rename local variable out of the way.
+
+   α-rename variable, rename formal parameter of λ-expression.
+
+   (λ v . e)   -->  (λ x . [x/v]e)            where ∉ FV(e)
+
+PRACTICE
+
+  (λ x . x) (λ y . y)
+    --> (λ y . y)
+
+  (λ f . λ g . λ x . f (g x)) (λ y . y) z
+  = ((λ f . (λ g . (λ x . f (g x)))) (λ y . y)) z
+  --> (λ g . (λ x . (λ y . y) (g x))) z
+  --> (λ g . (λ x .      (g x)     )) z
+  -->        (λ x .       z x     )
+
+Does it matter whether we do the inner or outer reduction first?
+Not if the system is "confluent".
+
+   λ x . a x a = λ y . a y a            (up to α-renaming)
+
+ZERO  = λ f x . x = λ f . (λ x . x)
+ONE   = λ f x . f x
+TWO   = λ f x . f (f x)
+THREE = λ f x . f (f (f x))
+FOUR  = λ f x . f (f (f (f x)))
+FIVE  = λ f x . f (f (f (f (f x))))
+...
+
+SUCC = λ n . (λ f x . f (n f x))
+SUCC = λ n . (λ f x . n f (f x))               (alternate definitions. equivalent?)
+
+PLUS = λ n m . λ f x . m f (n f x)
+PLUS = λ n m . λ f x . n f (m f x)             (alternate definitions. equivalent?)
+PLUS = λ n m . n SUCC m                        (alternate definitions. equivalent?)
+
+PLUS TWO THREE
+  = (λ n m . λ f x . m f (n f x)) (λ f x . f (f x)) (λ f x . f (f (f x)))
