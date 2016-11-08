@@ -1,0 +1,60 @@
+PLUS = λ n m . n SUCC m
+  (introduce some syntactic sugar:)
+PLUS n m = n SUCC m
+
+TIMES n m = n (PLUS m) zero                  [multiplication = repeated addition]
+
+want conditional: IF, TRUE and FALSE s.t.
+
+    IF TRUE x y = x
+    IF FALSE x y = y
+
+TRUE x y = x
+FALSE x y = y
+IF b x y = b x y
+
+Id x = x          [identity function,   note IF = Id]
+Const x = λ y . x       [constant funtion,   note TRUE = Cons]
+
+NOT b = IF b FALSE TRUE
+FLIP f = λ x y . f y x     [flips order of args]
+
+note: can use FLIP for NOT
+
+isEven n = n NOT TRUE
+isZero n = n (Const FALSE) TRUE
+
+want PAIR, FST, SND s.t.
+  FST (PAIR x y) = x
+  SND (PAIR x y) = y
+
+PAIR x y f = f x y
+FST x y = x          [FST = TRUE = Const]
+SND x y = y          [SND = FALSE]
+
+PRED n f x = SND (n g (PAIR TRUE x))
+  where g p = PAIR FALSE (IF (FST p) (SND p) (f (SND p)))
+  where g p = PAIR FALSE ((IF (FST p) Id f) (SND p))
+
+SUBTRACT n m = m PRED n
+
+f g = λ x . bbb
+preFact f = λ n . IF (isZero n) ONE (TIMES n (f PRED n))
+want "fixedpoint" of preFact, Y will be fixedpoint-finding function
+   Y preF = preF (Y preF)         [algebraic property]
+
+   (Y preF) = λ x . (preF (Y preF)) x
+   Y = λ preF . λ x . (preF (Y preF)) x
+
+Y = λ f . (λ x . f (x x)) (λ x . f (x x))          [wikipedia]
+Y f = (λ x . f (x x)) (λ x . f (x x))
+Y f = (λ x . f (x x)) (λ y . f (y y))
+    -->
+      [x/λ x . f (x x)](f (x x))
+      = f ((λ x . f (x x)) (λ x . f (x x)))
+    --> f (Y f)
+    --> f (f (Y f))
+    --> f (f (f (Y f)))
+    --> ...
+
+FACT = Y preFact
