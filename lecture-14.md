@@ -12,7 +12,7 @@ To achieve this we will need to:
 
 ### Defining types
 
-Our λ calculus grammar looks like this currently
+Our λ calculus grammar looks like this currently:
 >  E ::= V | E E | λ V . E
 
 The simplest starting point we have is to create a grammar for the primitives we are familiar with.
@@ -20,7 +20,7 @@ The simplest starting point we have is to create a grammar for the primitives we
 > τ :: = τ<sub>1</sub> | τ<sub>2</sub> | τ<sub>3</sub> | ...
 
 Where τ<sub>1</sub> might be int, τ<sub>3</sub> could be boolean.
-**Note:** There is a finite amount of these primitives  
+**Note:** There is a finite number of these primitives  
 
 We also need to be able to talk about function types,
 for instance a function that takes an int and returns an int
@@ -57,7 +57,7 @@ or
 
 > true true
 
-These do not make much sense, but are still valid.
+These do not make any sense, but are still valid.
 
 #### Type Environment
 
@@ -77,7 +77,7 @@ Now we can ask ourselves, what does correctly typed mean? Can we infer the type 
 
 #### Typing Rules
 
-We will borrow notation from the [Curry-Howard Isomorphism](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence "Wiki link to Curry-Howard Isomoprhism")
+We will borrow notation from the [Curry-Howard Isomorphism](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence "Wiki link to Curry-Howard Isomorphism")
 
 We write `Γ, v:τ` for the type environment Γ augmented with a mapping from v to τ.
 We use `Γ ⊢ E:τ` for the logical statement that, in the type environment Γ it can be shown that the term E has type τ.
@@ -132,7 +132,7 @@ but we don't know about the type of V, so we have to update our type environment
 Γ ⊢ λ V . E:τ1 → τ2
 ```
 
-Now we can do type inferrence!
+Now we can do type inference!
 
 #### Inferring types
 
@@ -204,6 +204,6 @@ In λ calculus we could write code that does not terminate,
 however in λ<sup>→</sup> calculus we cannot.
 
 This means we can't write non-terminating programs.
-It also it is not turing complete.
+It also it is not Turing complete.
 
 The above proof looks like predicate logic.
