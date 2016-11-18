@@ -1,5 +1,5 @@
 Simply typed λ-calculus:
-(λ x  x)                  
+(λ x  x)
 Given type ℝ	         overall type ℝ
  (λ x    int-> ℝ      x)    Given type here is a function mapping int to ℝ
 		         overall type (int -> ℝ)-> (int ->R)
@@ -10,21 +10,21 @@ b:t b is type t
 \{v,_} : remove v
 
 1)	b:t ϵ Г                b is type t is an element of the type environment
-Г Ⱶ b:t 	             
+Г Ⱶ b:t 	
 
-2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2     
+2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2
 Г Ⱶ e1 e2:t2
 
 Forgetting about expressions and only looking at types.
 1)	b:t ϵ Г 		type= logical statement (predicate calculas)
- 	Г Ⱶ b:t	             
-2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2     
+ 	Г Ⱶ b:t	
+2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2
 Г Ⱶ e1 e2:t2
 
 3)	(Г \{v,_}) U {v: t1} Ⱶ e1: t1
 Г Ⱶ λ v : t1.e1  :t1 ->t2
 Take axioms add new t1, conclude t2, from axioms conclude t1->t2
-Types <-->  Theorems                 Programs <--> Proofs 
+Types <-->  Theorems                 Programs <--> Proofs
 There is a correspondence between these things
 
 Concept: Showing t is typed well proves t.
@@ -42,12 +42,12 @@ Typed λ –calc has generic types
 Compose:  ∀t1 ∀ t2 ∀ t3     (t1 ->t2)->(t2->t3)->(t1->t3)
 
 Combinator: term in λ calc with no free variables
-	λ calc expression e st   if FV(e)=null element e is a combinatory. 
+	λ calc expression e st   if FV(e)=null element e is a combinatory.
 The type of a combinator is a tautology.
 
 
 λ f .λ x . F x : ∀ t1 Simply typed λ-calculus:
-(λ x  x)                  
+(λ x  x)
 Given type ℝ	         overall type ℝ
  (λ x    int-> ℝ      x)    Given type here is a function mapping int to ℝ
 		         overall type (int -> ℝ)-> (int ->R)
@@ -58,21 +58,21 @@ b:t b is type t
 \{v,_} : remove v
 
 1)	b:t ϵ Г                b is type t is an element of the type environment
-Г Ⱶ b:t 	             
+Г Ⱶ b:t 	
 
-2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2     
+2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2
 Г Ⱶ e1 e2:t2
 
 Forgetting about expressions and only looking at types.
 1)	b:t ϵ Г 		type= logical statement (predicate calculas)
- 	Г Ⱶ b:t	             
-2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2     
+ 	Г Ⱶ b:t	
+2)	Г Ⱶ e1:t1 -> t2        Г Ⱶ e2:t2
 Г Ⱶ e1 e2:t2
 
 3)	(Г \{v,_}) U {v: t1} Ⱶ e1: t1
 Г Ⱶ λ v : t1.e1  :t1 ->t2
 Take axioms add new t1, conclude t2, from axioms conclude t1->t2
-Types <--> Theorems                 Programs <--> Proofs 
+Types <--> Theorems                 Programs <--> Proofs
 There is a correspondence between these things
 
 Concept: Showing t is typed well proves t.
@@ -90,7 +90,7 @@ Typed λ –calc has generic types
 Compose:  ∀t1 ∀ t2 ∀ t3     (t1 ->t2)->(t2->t3)->(t1->t3)
 
 Combinator: term in λ calc with no free variables
-	λ calc expression e st   if FV(e)=null element e is a combinatory. 
+	λ calc expression e st   if FV(e)=null element e is a combinatory.
 The type of a combinator is a tautology.
 
 
@@ -117,7 +117,7 @@ grandparent(x,z):- parent(x,y), parent(y,z)
 'runtime'
 ?- male(X)    ?- prove statement true for some x
     X=bob;
-    X=dan;     
+    X=dan;
     no		closed world assumption: assume it knows everything about the world.
 
 ?- parent (X,bob) :is somebody bobs parent

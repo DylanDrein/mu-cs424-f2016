@@ -14,13 +14,13 @@ Languages
 
 ### History/Mindset of Programming Languages
 
-Originally it was believed that hardware was the difficult part of computer programming and that software would be straightforward.  
+Originally it was believed that hardware was the difficult part of computer programming and that software would be straightforward.
 One of the first computers was Charles Babbages [Difference Engine](http://www.computerhistory.org/babbage/engines/) made in the 1800's without electricity, using cogs and widgets. It didn't work as it used numbers in base 10 not 2 and had 20 digit precision
 [Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace) realized programming is fun
 
 ### First Electronic computer
-[Konrad Zuse](https://en.wikipedia.org/wiki/Konrad_Zuse), Germany who worked alone on his Z1 floating point computer that didn't catch on.  
-People mainly used machine code for a while, which involved looking up instructions in a table and then hitting the button for the command  
+[Konrad Zuse](https://en.wikipedia.org/wiki/Konrad_Zuse), Germany who worked alone on his Z1 floating point computer that didn't catch on.
+People mainly used machine code for a while, which involved looking up instructions in a table and then hitting the button for the command
 #### Assembly Language
 ````
 calculate (a+b*c)-d*e
@@ -50,7 +50,7 @@ John Backus at IBM Research wrote a formula translation language to translate eq
 * Object Oriented
 * A ball
 
-At the same time:  
+At the same time:
 [Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) wanted to make it easier for regular people to write programs which lead to Common Business-Oriented Language
 
 ## COBOL
@@ -71,7 +71,7 @@ gives 5
 # Language
 * idea of model computation
 * Turing Machine - program goes through stages
-* Church - Lambda Calculus , higher order functions, more mathematical  
+* Church - Lambda Calculus , higher order functions, more mathematical
 
 Turing Machine can compute everything Churches Lambda Calculus (equivalent models of computation)
 

@@ -3,7 +3,7 @@ we want to get rid of if and add in a let, we want to get rid of define
 it's extensible, we can have new functions but they need to be defined globally
 
 
-apply_ 
+apply_
 takes function and a list of arguments
 evaluates the body in an environment the body was defined augmented with the formal parameters
 very very short function yet powerful

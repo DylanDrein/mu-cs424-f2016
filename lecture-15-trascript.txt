@@ -20,7 +20,7 @@ compiling /home/barak/text/Teach/NUIM/2016/cs424/lecture-15.pl for byte code...
 yes
 | ?- female(X).
 
-X = anne ? 
+X = anne ?
 
 yes
 | ?- female(X).
@@ -2785,4 +2785,4 @@ X = 5
 X = 7
 
 no
-| ?- 
+| ?-

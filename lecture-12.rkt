@@ -37,14 +37,14 @@ Define sub operator:
      FV(v) = {v}
      FV(e1 e2) = SetUnion(FV(e1) FV(e2))
      FV(λv . e) = FV(e) \ {v}
-     
+
 [[correct]] [e/v](λ v . e1) = (λ v . e1)       ;stop when shadowed
 [[wrong]]   [e/v](λ v . e1) = (λ x . [e/v]e1)  ;not shadowed because {v} != {x}
                                                ; rule here is not allowed if x is not an element of FV(e)
 
-            
+
             (λ x . x v) x --> [x/x](x v) = [x/x]x [x/x]v = x v
-            
+
             (λ x . x v) v --> [v/x](x v) = [v/x]x [v/x]v = v v ;right?
             (λ x . (λ y . x)) y --> [y/x](λ y . x) = λ y . [y/x]x = λ y . y ;; local y inside body is not the same as the 'free' outside y **wrong**
                                                                             ;; vay r "captured"
@@ -91,6 +91,5 @@ PNO Arithmetic(sp?):
       Plus λ n m . n Succ m ; apply successor m times to n
 
       Plus Two Three = (λ n m . λ f x . m f (n f x)) (λ f x . f ( f x)) (λ f x . f (f (f x)))
-      
 
-      
+

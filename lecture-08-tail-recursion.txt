@@ -1,8 +1,8 @@
-Tail recursion 
+Tail recursion
 
 term is relly bad
-it doesnt actually have required recursion 
-- story of work, bank , resturant , milk 
+it doesnt actually have required recursion
+- story of work, bank , resturant , milk
 alot of computer languages implemented follow this bad example
 
 Definition: Tail recursion is the act of making a tail recursive call. We can understand that term in parts. A call is just application of a function. A recursive call occurs when a function invokes itself. A tail call occurs when a function's result is just the value of another function call. In other words, in order to determine the value of function f, we call g, and return whatever g did, without modification.
@@ -13,7 +13,7 @@ routine foo() {
 				 // is TCO = Tall Call Optimization
 }
 
--bar branches to the stack 
+-bar branches to the stack
 -a new activation record will be created for Baz
 -Baz will pop a return address of the stack
 -target address will have a return instruction
@@ -34,16 +34,16 @@ Bad way of doing doubling :
 
 Could we rewrite this so that it is tail recursive?
 -calls itself in a way where that call is subject to TCO
--looking at code -> some are in tail postition some are not 
-	- 0 not in tail position 
+-looking at code -> some are in tail postition some are not
+	- 0 not in tail position
 	- + is in tail position
-this is not as the the call is not recursive. 
+this is not as the the call is not recursive.
 
 (define dub_ (lambda(n)(dub_aux n 0)))
 
 (define dub_aux
  (lambda (n a)
- 	(if (zero? n) 
+ 	(if (zero? n)
  		a
  		(dub_aux (- n 1)(+ 2 a) ))))
 
@@ -52,7 +52,7 @@ this is not as the the call is not recursive.
 (dub_aux 40 0)
 = 80 etc
 
-this a way of writing a tight loop 
+this a way of writing a tight loop
 It looks like functional code
 function call = 1)arguments are martial
 				2)return address is stored
@@ -95,10 +95,10 @@ this is not tail recursive:
 check fibb code example of storing previous in memory
 
 Check notes: didnt get this finished.
-(define fibb_pp 
+(define fibb_pp
 	(lambda (n i f_i-1 f_i-2)
-		(let 
-		(if (= i n) 
+		(let
+		(if (= i n)
 		(+ f_i-1 f_i-2)
 		(fibb_pp n (+ i 1)f_i f_i-1))))
 

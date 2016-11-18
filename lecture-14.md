@@ -20,7 +20,7 @@ The simplest starting point we have is to create a grammar for the primitives we
 > τ :: = τ<sub>1</sub> | τ<sub>2</sub> | τ<sub>3</sub> | ...
 
 Where τ<sub>1</sub> might be int, τ<sub>3</sub> could be boolean.
-**Note:** There is a finite number of these primitives  
+**Note:** There is a finite number of these primitives
 
 We also need to be able to talk about function types,
 for instance a function that takes an int and returns an int
@@ -53,7 +53,7 @@ not, and, etc are conditions, and (+), zero?, etc are operators
 We can now write expressions such as
 > 3 7 false
 
-or 
+or
 
 > true true
 

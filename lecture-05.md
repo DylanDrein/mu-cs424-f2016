@@ -1,11 +1,11 @@
 # Lecture 5 notes
 
-First we define our basic derivative function. This contains an anonymous/lambda function which takes e as a parameter.  
-Then we check if the expression e is a number, if so it's derivative is 0  
-then we check if it's x to the power 1 which is differentiated to 1  
-else we define a variable op which is the start of our expression, which should be an operator as our expressions are written in polish notation  
-we then take op and search for it in our function diff-table declared further down. This returns the function differentiated.  
-we then apply the function to the rest of the input (as in not the operator we differentiated). We also supply the rest of the input differentiated as some functions derivatives require these values. (e.g. (d/dx) sin(u) = cos(u)* (d/dx)u')  
+First we define our basic derivative function. This contains an anonymous/lambda function which takes e as a parameter.
+Then we check if the expression e is a number, if so it's derivative is 0
+then we check if it's x to the power 1 which is differentiated to 1
+else we define a variable op which is the start of our expression, which should be an operator as our expressions are written in polish notation
+we then take op and search for it in our function diff-table declared further down. This returns the function differentiated.
+we then apply the function to the rest of the input (as in not the operator we differentiated). We also supply the rest of the input differentiated as some functions derivatives require these values. (e.g. (d/dx) sin(u) = cos(u)* (d/dx)u')
 ````
 (define ddx
   (λ (e)
@@ -19,8 +19,8 @@ we then apply the function to the rest of the input (as in not the operator we d
 			      (map ddx (cdr e))))))))))
 ````
 
-Now we define our table of function derivatives.  
-This boils down to a list of functions, each element being simply a list with the operation first and the value after the operation second.  
+Now we define our table of function derivatives.
+This boils down to a list of functions, each element being simply a list with the operation first and the value after the operation second.
 ````
 (define diff-table
   (list (list '+ (λ (u v du dv)		; (u+v)' = u' + v'
@@ -35,14 +35,14 @@ This boils down to a list of functions, each element being simply a list with th
 		     (ssl- (ssl* (ssl-sin u) du))))
 	))
 ````
-Now we define the trigonometric operations which return a list of format (operation value)  
+Now we define the trigonometric operations which return a list of format (operation value)
 ````
 (define ssl-cos (λ (e) (list 'cos e)))
 
 (define ssl-sin (λ (e) (list 'sin e)))
 ````
 
-Now we allow differentiating multiple times using the repeat function below. This function just calls repeat (essentially just renames it)  
+Now we allow differentiating multiple times using the repeat function below. This function just calls repeat (essentially just renames it)
 ````
 (define ddx-nth (λ (e n) (repeat ddx n e)))
 ````
@@ -64,10 +64,10 @@ Here we define some unit tests. These unit tests compare the input and the outpu
       (* (cos (* x x)) (+ x x)))))
 ````
 
-Instead we can try to evaluate our derivative at a point as say for the example above (+ 2 (+ 2 2)) => 6 and (* 3 2) => 6  
-This is a function that takes in an x value, with another function inside that takes in a variable called unit-test.  
-Then we make some variable definitions. u = start of unit-test (the first expression, undifferentiated), n = number of times to differentiate, du1 = the second expression (differentiated).  
-Then we set du2 to the nth derivative of u.  
+Instead we can try to evaluate our derivative at a point as say for the example above (+ 2 (+ 2 2)) => 6 and (* 3 2) => 6
+This is a function that takes in an x value, with another function inside that takes in a variable called unit-test.
+Then we make some variable definitions. u = start of unit-test (the first expression, undifferentiated), n = number of times to differentiate, du1 = the second expression (differentiated).
+Then we set du2 to the nth derivative of u.
 Then we use about= to check the two derivatives du1, du2 are approximately equal at point x
 ````
 (define unit-tests-at
@@ -82,13 +82,13 @@ Then we use about= to check the two derivatives du1, du2 are approximately equal
 	 ddx-unit-test-table)))
 ````
 
-The about functions checks if two values are roughly equal (as in the absolute difference is less than 0.000001 which should account for floating point errors)  
+The about functions checks if two values are roughly equal (as in the absolute difference is less than 0.000001 which should account for floating point errors)
 ````
 (define about= (λ (x y) (< (abs (- x y)) 1e-6)))
 ````
 
-Here we search a table for a key(operation). If the table is empty we give an error message.  
-Otherwise we check if the operation is the first element and return it if it is,  
+Here we search a table for a key(operation). If the table is empty we give an error message.
+Otherwise we check if the operation is the first element and return it if it is,
 else we run lookup on the rest of the list.
 ````
 (define lookup
@@ -124,8 +124,8 @@ ssl+ and ssl* just define addition and multiplication in our silly little langua
     (cond ((number? u) (- u))
 	  (else (list '- u)))))
 ````
-ssl-eval just evaluates our expressions.  
-If the expression is just a number it is returned immediately. if the expression is just x then we just return that.  
+ssl-eval just evaluates our expressions.
+If the expression is just a number it is returned immediately. if the expression is just x then we just return that.
 Otherwise we define
 ````
 ;;; evaluate an SSLx expression at some value of x

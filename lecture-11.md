@@ -4,63 +4,63 @@
 
 **Assignment**
  - common bug
- 
+
  (and #f (/ 1 0)) --> #f
- 
- whereas: 
- 
+
+ whereas:
+
   (and 3 (/ 1 0)) --> error (because 3 isnt false)
-  
-  and: 
-  
+
+  and:
+
   (or #f 7) --> will return 7 not #t
-  
+
 ## last lecture
- 
+
 curry_ and uncurry_
-  
-We dont want explicit recursion 
-  
+
+We dont want explicit recursion
+
 Trying to define factorial:
-  
+
 ```
   ;; fibonacci defined recursively
-  (define fib 
-    (lambda (n) 
-        if (<= n 1) 
-            1 
-            (+ 
-                (fib (- n 1)) 
+  (define fib
+    (lambda (n)
+        if (<= n 1)
+            1
+            (+
+                (fib (- n 1))
                 (fib (- n 2)))))
-                
+
 ;; try not to return recursively --> pre-fib
   (define pre-fib
       (lambda (f)
-        (lambda (n) 
-            if (<= n 1) 
-                1 
-                (+ 
-                    (f (- n 1)) 
+        (lambda (n)
+            if (<= n 1)
+                1
+                (+
+                    (f (- n 1))
                     (f (- n 2))))))
 ```
-  
+
 Note: fib is the (unique) fixed-point of pre-fib. (over the domain of fib)
-  
-  
+
+
 intuition: sometimes can find the fixedpoint of a numeric function g:R->R by iteration
         g(...g(g(g(x0)))...) often converges to fixed point of g.
-        
+
 error is undefined everywhere in some sense
 
 error is a terrible approx of fibinocci
 
 ```
-(define iterate 
-    (lambda (f n) 
-        (lambda (x) 
-            if (zero? n) 
-                x 
-                (iterate f (- n 1)) 
+(define iterate
+    (lambda (f n)
+        (lambda (x)
+            if (zero? n)
+                x
+                (iterate f (- n 1))
                     (f x))))
 
 (((iterate error per-fib 5) error) 4) ;; will be defined up to 5
@@ -69,10 +69,10 @@ error is a terrible approx of fibinocci
 (define pre-fib_
     (lambda (f)
             (lambda (n)
-                (if (<= n 1) 
-                    1 
-                    (+ 
-                        ((pre-fib0 pre-fib0) (- n 1)) 
+                (if (<= n 1)
+                    1
+                    (+
+                        ((pre-fib0 pre-fib0) (- n 1))
                         ((pre-fib0 pre-fib0) (- n 2))))))))))
 ```
 
@@ -95,7 +95,7 @@ E ::= V [variable] || lambda V . E [lambda expression] || E E [application]
 V ::= x | y | z | a | b | ....
 
 Notation: two terms next to one another is an application of A term to B term
-i.e 
+i.e
 (A B) application of A to B
 
 - parens used for grouping

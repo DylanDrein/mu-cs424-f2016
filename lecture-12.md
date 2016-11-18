@@ -1,10 +1,10 @@
-#Lambda Calculus 
+#Lambda Calculus
 
 Lambda claculus was the first turing competitor, it is a model of both calulation and functions.
-Adopted a new move in mathematics called Construction 
+Adopted a new move in mathematics called Construction
 Constructivism asserts that it is necessary to find (or "construct") a mathematical object to prove
 that it exists. When one assumes that an object does not exist and derives a contradiction from that
-assumption, one still has not found the object and therefore not proved its existence, according to 
+assumption, one still has not found the object and therefore not proved its existence, according to
 constructivism. This viewpoint involves a verificational interpretation of the existence quantifier,
 which is at odds with its classical interpretation.
 

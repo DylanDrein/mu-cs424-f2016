@@ -40,8 +40,8 @@ PAIR x y f = f x y
 FST x y = x          [FST = TRUE = Const]
 SND x y = y          [SND = FALSE]
 
-want pred to do nothing the first turn but apply the function the rest of the turns. 
-PRED n f x = SND (n g (PAIR TRUE x))  
+want pred to do nothing the first turn but apply the function the rest of the turns.
+PRED n f x = SND (n g (PAIR TRUE x))
   where g p = PAIR FALSE (IF (FST p) (SND p) (f (SND p)))
   where g p = PAIR FALSE ((IF (FST p) Id f) (SND p))      [if first element return identity, else apply function to second p]
 
@@ -62,7 +62,7 @@ Y f = (λ x . f (x x)) (λ y . f (y y))              [We can expand, so we apply
     -->
       [x/λ x . f (x x)](f (x x))
       = f ((λ x . f (x x)) (λ x . f (x x)))
-    --> f (Y f)                                     
+    --> f (Y f)
     --> f (f (Y f))
     --> f (f (f (Y f)))
     --> ...
