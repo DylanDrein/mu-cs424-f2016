@@ -1,0 +1,56 @@
+Prolog Constructs (Built-in):
+	
+memeber(a, [X, Y, Z]).  ... is 'a' a member of [X, Y, Z]?
+	true if: 	X = a?;
+				Y = a?;
+				Z = a?;
+
+append(Xs, Ys, Zs).  ... is Xs appended with Ys, equal to Zs?
+	e.g append([a,b,c], [d,e], [a,b,c,d,e]).
+			true.
+
+N.B.:'Closed-World Assumption:' - Cannot be proved true, therefore its false.
+	
+not() 
+	e.g not(member(X, [a,b,c])).
+			no ... beacause X could equal a, b or c.
+
+		not(member(d, [a,b,c])).
+			yes ... because d does not equal a, b or c.
+
+	not(X) :- X, !, fail.
+	not(X) :- ...
+		'!' ,when trying to prove, cut off alternative search directions.
+		'fail' ,is a Prolog predicate, that means false.
+		
+N.B.: Has 'dirty constructs' thrown in as well, e.g. IO.
+
+
+Unification: (i.e. '=')
+	X = [a, b, c]
+		true if: X = [a, b, c]
+
+	=([a,X,c], [a,b,c]).
+		true if: X = b.
+
+N.B.: Prolog does *not* have an occurs check during unification, therefore allows "infinite" solutions.
+
+
+Needs Arithmetic: (not Peano)
+	We use 'is()'.
+	e.g is(X, 7+1)  ... X is 7+1 (eqivalent statement: is(X, +(7, 1)))
+			X = 8
+
+
+Difference Lists: (i.e. '-')
+	'Xs - Ys' ,represents first k elements of Xs, followed by tail of Ys.
+	Invalid if Ys does not equal tail elements of Xs.
+	[a,b,c,d,e,f] - [d,e,f] represents [a,b,c]
+
+	diffListToList(Xs - Ys, Zs) :- append(Zs, Ys, Xs).
+		Zs appended to Ys, should yield Xs.
+	
+	e.g diffListToList([a,b,c] - [c], [a,b]).
+			true
+
+	Difference lists are convenient for natural language processing (e.g. Madlibs).
