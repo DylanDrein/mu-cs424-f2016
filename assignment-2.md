@@ -1,4 +1,4 @@
-# Assignment 1
+# Assignment 2
 
 *Due Date:* 11:00 Thurs 1-Dec-2016.
 
