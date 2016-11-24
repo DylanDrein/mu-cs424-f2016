@@ -1,7 +1,7 @@
 %% -*- prolog -*-
 
 %% FACTS:
-parent(jacob,fishel).
+parent(jacob,fishel).	% parent(X,Y) means X is Y's parent.
 parent(fishel,barak).
 parent(anne,barak).
 parent(albert,anne).
@@ -9,9 +9,11 @@ parent(esther,anne).
 male(jacob).
 male(fishel).
 male(barak).
-male(albert).
+male(albert).			% To avoid a discontiguous predicate warning, put all similar clauses together
 female(anne).
 female(esther).
+
+
 
 %% abstract definitions
 father(X,Y) :- male(X), parent(X,Y).
@@ -23,9 +25,9 @@ grandparent(X,Z) :- parent(X,Y), parent(Y, Z).
 
 %% terms representing Nat can be: z, s(T) where T is Nat.
 %% z for zero, s for successor
-
+%% Simplest axioms to describe arithmetic
 paEqual(z,z).
-paEqual(s(X),s(Y)) :- paEqual(X,Y).
+paEqual(s(X),s(Y)) :- paEqual(X,Y).		% if X and Y are equal then s(X) and s(Y) are equal
 
 %% plus(+,+,-)
 %% plus(-,-,+)
@@ -35,7 +37,7 @@ plus(X,z,X).
 plus(X,s(Y),s(Z)) :- plus(X,Y,Z).
 
 mul(z,_,z).
-mul(s(X),Y,Z) :- mul(X,Y,W), plus(Y,W,Z).
+mul(s(X),Y,Z) :- mul(X,Y,W), plus(Y,W,Z).	% (X+1)*Y = Z if: X*Y = W and Y+W = Z
 
 %% | ?- mul(X,Y,s(s(s(s(s(s(z))))))).
 
@@ -58,7 +60,7 @@ mul(s(X),Y,Z) :- mul(X,Y,W), plus(Y,W,Z).
 %%   exept . instead of dot, so
 %% .(1,.(2,.(3,[])))
 
-%% mem(X,.(X,_)).
+%% mem(X,.(X,_)).					%% (X,_) -> X is first element in list, _ denotes everthing else in the list 
 %% mem(X,.(_,Ys)) :- mem(X,Ys).
 
 mem(X,[X|_]).
