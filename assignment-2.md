@@ -7,7 +7,7 @@ Hand the assignment in on moodle as a single file (preferably ascii or utf-8 tex
 
 ## Setup
 
-Consider the simply typed lambda calculus, with added types t1, t2, ..., t9 and one basis object of type b:t8 and eight basis functions of types f4:t4→t5, f5:t5→t6, ..., f8:t8→t9.
+Consider the simply typed lambda calculus, with added types t1, t2, ..., t9 and one basis object of type b:t8 and five basis functions of types f4:t4→t5, f5:t5→t6, ..., f8:t8→t9.
 
 Recall that in the simply typed lambda calculus, a variable after the symbol λ must be given a type, as in:
 
