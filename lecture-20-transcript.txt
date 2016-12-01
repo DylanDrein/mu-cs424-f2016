@@ -1,0 +1,144 @@
+GHCi, version 8.0.1: http://www.haskell.org/ghc/  :? for help
+Prelude> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :t Red
+Red :: Color
+*Main> pi
+3.141592653589793
+*Main> 'a' : Char
+
+<interactive>:4:7: error:
+    Data constructor not in scope: Char :: [Char]
+*Main> :t 'a'
+'a' :: Char
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :t Circle
+Circle :: Double -> Double -> Double -> Circle
+*Main> Circle 1 2 0.2
+
+<interactive>:8:1: error:
+    • No instance for (Show Circle) arising from a use of ‘print’
+    • In a stmt of an interactive GHCi command: print it
+*Main> Red
+
+<interactive>:9:1: error:
+    • No instance for (Show Color) arising from a use of ‘print’
+    • In a stmt of an interactive GHCi command: print it
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> Circle 1 2 0.2
+Circle 1.0 2.0 0.2
+*Main> Red == Red
+
+<interactive>:12:1: error:
+    • No instance for (Eq Color) arising from a use of ‘==’
+    • In the expression: Red == Red
+      In an equation for ‘it’: it = Red == Red
+*Main> Red
+
+<interactive>:13:1: error:
+    • No instance for (Show Color) arising from a use of ‘print’
+    • In a stmt of an interactive GHCi command: print it
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+
+lecture-20.hs:28:26: error: parse error on input ‘,’
+Failed, modules loaded: none.
+Prelude> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> Red == Red
+True
+*Main> Circle 1 2 0.1 == Circle 1 2 0.2
+False
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :t Circle
+Circle :: Double -> Double -> Double -> Shape
+*Main> :t Square
+Square :: Double -> Double -> Double -> Double -> Shape
+*Main> Square 1 2 3 4 == Circle 5 4 3
+False
+*Main> :t Circle
+Circle :: Double -> Double -> Double -> Shape
+*Main> :t True
+True :: Bool
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> scaleShape 2 (Circle 1 1 10)
+Circle 1.0 1.0 20.0
+*Main> scaleShape 2 (Square 1 1 5 5)
+*** Exception: lecture-20.hs:41:1-56: Non-exhaustive patterns in function scaleShape
+
+*Main> sqrt 4 * 100
+200.0
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+
+lecture-20.hs:44:16: error:
+    • Variable not in scope: y1 :: Double
+    • Perhaps you meant one of these:
+        ‘x1’ (line 42), ‘y2’ (line 42), ‘y0’ (line 42)
+
+lecture-20.hs:46:63: error:
+    • Variable not in scope: y1 :: Double
+    • Perhaps you meant one of these:
+        ‘x1’ (line 42), ‘y2’ (line 42), ‘y0’ (line 42)
+Failed, modules loaded: none.
+Prelude> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> scaleShape 2 (Square 5 5 10 10)
+Square 2.5 2.5 12.5 12.5
+*Main> scaleShape 2 (Square 15 5 20 10)
+Square 12.5 2.5 22.5 12.5
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> MyListIntPair 0 (MyListIntPair 1 (MyListIntPair 2 NilInts))
+MyListIntPair 0 (MyListIntPair 1 (MyListIntPair 2 NilInts))
+*Main> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+
+lecture-20.hs:85:11: error:
+    • Couldn't match expected type ‘MyListInt’
+                  with actual type ‘List t0’
+    • In the pattern: Pair _ xs
+      In an equation for ‘myLength’:
+          myLength (Pair _ xs) = 1 + myLength xs
+
+lecture-20.hs:85:37: error:
+    • Couldn't match expected type ‘MyListInt’
+                  with actual type ‘List t0’
+    • In the first argument of ‘myLength’, namely ‘xs’
+      In the second argument of ‘(+)’, namely ‘myLength xs’
+      In the expression: 1 + myLength xs
+    • Relevant bindings include
+        xs :: List t0 (bound at lecture-20.hs:85:18)
+
+lecture-20.hs:86:10: error:
+    • Couldn't match expected type ‘MyListInt’
+                  with actual type ‘List t1’
+    • In the pattern: Nil
+      In an equation for ‘myLength’: myLength Nil = 0
+Failed, modules loaded: none.
+Prelude> :l lecture-20.hs
+[1 of 1] Compiling Main             ( lecture-20.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :t List
+
+<interactive>:1:1: error: Data constructor not in scope: List
+*Main> :k List
+List :: * -> *
