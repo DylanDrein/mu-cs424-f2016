@@ -1,0 +1,124 @@
+-- Algebraic Data Types
+
+-- Colour ... enum - Red, Blue, Green
+-- Shape ... union Square, Circle
+-- Circle ... struct x, y, Radius
+
+		   --separate possibilities (same as a union)
+data Colour = Red | Blue | Green
+			deriving (Show, Eq)
+------type---constructor-----NOT RELATED, SEPARATE NAMESPACE
+data Circle = Circle Double Double Double
+			deriving (Show, Eq)
+data Point = Point Double Double
+			deriving(Show, Eq)
+data Shape = Circle' Double Double Double | Square Double Double Double Double
+			deriving(Show, Eq)
+
+-- If we didnt define Eq for colour, how would you define equality
+colourEq :: Colour -> Colour -> Bool
+colourEq Red Red = True
+colourEq Blue Blue = True
+colourEq Green Green = True
+colourEq _ _ = False
+
+scaleShape :: Double -> Shape -> Shape
+scaleShape s (Circle x y radius) = Circle x y (s*radius)
+scaleShape s (Square x0 y0 x1 y1) = 
+	let xc = (x0 + x1)/2
+		yc = (y0 + y1)/2
+	in
+		Square (xc-s*(x0-xc)) (yc-s*(y0-yc)) (xc+s*(x1-xc)) (yc+s*(y1-yc))
+
+scaleShape' :: Double -> Shape -> Shape
+scaleShape' s (Circle x y radius) = Circle x y (s*radius)
+scaleShape' s (Square x0 y0 x1 y1) = 
+	Square (xc-s*(x0-xc)) (yc-s*(y0-yc)) (xc+s*(x1-xc)) (yc+s*(y1-yc))
+	where
+		xc = (x0 + x1)/2
+		yc = (y0 + y1)/2
+
+-- Define MyList of Int
+
+--     type                constructor  (type of first slot)(type of second slot)
+data MyListInt = NilInts | MyListIntPair Int MyListInt
+				deriving(Show,Eq)
+
+myLIHead :: MyListInt -> Int
+myLIHead (MyListIntPair i _) = i
+
+MyLIEmpty :: MyListInt -> Bool
+MyLIEmpty (MyListIntPair _ _) = False
+MyLIEmpty NilInts = True
+
+MyLILength :: MyListInt -> Int
+MyLILength (MyListIntPair _ mores) = 1 + MyLILength mores
+MyLILength NilInts = 0
+
+-- To do it for any types rather than just Ints
+data List t = Nil | Pair t (List t)
+				deriving(Show,Eq)
+
+myHead :: List t -> t
+myHead (Pair x _) = x
+
+MyEmpty :: List t -> Bool
+MyEmpty (Pair _ _) = False
+MyEmpty Nil = True
+
+MyLength :: List t -> Int
+MyLength (Pair _ xs) = 1 + MyLILength xs
+MyLength Nil = 0
+
+
+
+
+
+----------------------------------------------
+CONSOLE
+----------------------------------------------
+
+:t Red
+>>Red :: Colour
+
+pi
+>>3.14...
+
+:t 'a'
+>>'a' :: Char
+
+:t Circle
+>> Double -> Double -> Double -> Circle
+
+Circle 1 2 0.2
+>> Error: Doesn't know how to print it
+
+Red
+>> Error: Doesn't know how to print it
+
+Circle 1 2 0.2   --after deriving line was added
+>> Circle 1.0 2.0 0.2
+
+Red == Red
+>> True
+
+Circle 1 2 0.2 == Circle 1 2 0.1
+>> False
+
+:t Circle
+>> Double -> Double -> Double -> Shape
+
+:t Square
+>> Double -> Double -> Double -> Double -> Shape
+
+Square 1 2 3 4 == Circle 5 4 3
+>> False
+
+scaleShape 2 (Circle 1 1 10)
+>> Circle 1.0 1.0 20.0
+
+scaleShape 2 (Square 1 1 5 5)
+>> Non exhaustive patterns in function scaleShape
+
+MyListIntPair 0 (MyListIntPair 1 (MyListIntPair2 NilInts))
+>> MyListIntPair 0 (MyListIntPair 1 (MyListIntPair2 NilInts))
