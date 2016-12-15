@@ -32,7 +32,7 @@ smm = do
   d <- [0..9]
   e <- [0..9]
   guard $ d /= e
-  y <- [0..9]
+  y <- [mod (d+e) 10]
   guard $ not (y `elem` [d,e])
   n <- [0..9]
   guard $ not (n `elem` [d,e,y])
@@ -41,6 +41,7 @@ smm = do
   o <- [0..9]
   guard $ not (o `elem` [d,e,y,n,r])
   m <- [0..9]
+  guard $ m /= 0
   guard $ not (m `elem` [d,e,y,n,r,o])
   s <- [0..9]
   guard $ not (s `elem` [d,e,y,n,r,o,m])
