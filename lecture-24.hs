@@ -74,3 +74,13 @@ smm = do
 --  [[2,8,1,9],[0,3,6,8],[0,3,1,8,7]],
 --  [[3,8,2,9],[0,4,5,8],[0,4,2,8,7]],
 --  [[5,8,4,9],[0,6,3,8],[0,6,4,8,7]]]
+
+data Pr a = Pr [(a,Double)]
+            deriving Show
+
+prToList (Pr xps) = xps
+
+-- Bug (applicative superclass changes, argh)
+-- instance Monad Pr where
+--   (>>=) (Pr xps) f = Pr (concat $ map (\(x,px)->map (\(y,py) -> (y,px*py)) (prToList (f x))) xps)
+--   return x = Pr [(x,1)]
