@@ -1,6 +1,7 @@
 -- More Monads
+-- Maybe a = for all types a, can have type 'Maybe a'
 
-mSqrt :: Double -> Maybe Double
+mSqrt :: Double -> Maybe Double		-- mSqrt = maybe square root
 mSqrt x = if (x<0)
           then Nothing
           else Just (sqrt x)
@@ -18,6 +19,8 @@ f1, f2, f3, f4 :: Double -> Maybe Double
 -- *Main> Just 4 >>= return . sin
 -- Just (-0.7568024953079282)
 
+-- >>= is a bind operator
+-- Binds value inside monad to an operation
 
 f1 x = mSqrt x >>= return . sin >>= mSqrt
 f2 = (>>= mSqrt) . (>>= return . sin) . mSqrt
@@ -40,6 +43,9 @@ f4 x = do
   mSqrt z
 
 putXXXln :: IO ()
+
+-- putXXXln = put three xs on a line followed be a new line
+
 -- putXXXln = putChar 'x'
 --            >>= (\_ -> putChar 'x')
 --            >>= (\_ -> putChar 'x')
@@ -67,12 +73,18 @@ putStringLn s = putString s >> putChar '\n'
 putString :: [Char] -> IO ()
 -- putString [] = return ()
 -- putString (c:s) = putChar c >> putString s
+
+-- (c:s) splits the string up into head 'c' and tail 's'.
+
 putString s = seqM $ map putChar s
 
 seqM :: Monad m => [m ()] -> m ()
 seqM as = foldl (>>) (return ()) as
 
-inOutThreeChar :: IO ()
+-- foldl applies an operation to a list in order, producing a cumulative result
+-- e.g. foldl (+) 100 [1,2,3,4] produces 110 (100+1+2+3+4)
+
+inOutThreeChar :: IO ()		-- read a character and print it out 3 times
 inOutThreeChar =
   getChar >>= (\c -> seqM $ [putChar '\n'] ++ (take 3 $ repeat $ putChar c) ++ [putChar '\n'])
 
@@ -80,7 +92,7 @@ inOutThreeChar =
 -- getChar :: IO Char
 -- *Main Control.Monad> :t repeat
 -- repeat :: a -> [a]
--- *Main Control.Monad> take 100 (repeat 1)
+-- *Main Control.Monad> take 100 (repeat 1)		// takes the first 100 elements from an infinite list of 1s
 -- [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 -- *Main Control.Monad> :l lecture-23.hs
 -- [1 of 1] Compiling Main             ( lecture-23.hs, interpreted )
